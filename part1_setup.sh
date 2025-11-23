@@ -21,4 +21,4 @@ echo "!!! ATTENZIONE: Il sistema si riavvierà in 10 secondi !!!"
 echo "Dopo il riavvio, dovrai eseguire lo script 'part2_install.sh' come utente con privilegi sudo."
 sleep 10
 # 4. Fare il reboot manuale col comando
-# sudo reboot
+sudo reboot
