@@ -60,7 +60,7 @@ su - ecoserver -c '
 
     echo "--------------------------------------------------------"
     echo "L\'installazione di Eco Server è stata avviata."
-    echo "Dopo il completamento, puoi gestire il server con i seguenti comandi (dopo aver eseguito 'su - ecoserver'):"
+    echo "Dopo il completamento, puoi gestire il server con i seguenti comandi dopo aver eseguito 'su - ecoserver':"
     echo "./ecoserver start"
     echo "./ecoserver status"
     echo "--------------------------------------------------------"
