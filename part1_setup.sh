@@ -4,9 +4,6 @@
 # SCRIPT 1/2: Configurazione Iniziale e Riavvio
 # Esegue: Aggiornamenti iniziali e installazione di SUDO
 # =======================================================
-
-echo "--- PARTE 1: Avvio Setup Iniziale ---"
-
 # 1. Aggiornamento e Upgrade Iniziale
 echo "Esecuzione di apt update e upgrade..."
 apt update -y
@@ -16,9 +13,44 @@ apt upgrade -y
 echo "Installazione di 'sudo' (necessario per i comandi futuri)..."
 apt install sudo -y
 
-# 3. Riavvio (Necessario dopo l'upgrade del kernel/pacchetti)
-echo "!!! ATTENZIONE: Il sistema si riavvierà in 10 secondi !!!"
-echo "Dopo il riavvio, dovrai eseguire lo script 'part2_install.sh' come utente con privilegi sudo."
-sleep 10
-# 4. Fare il reboot manuale col comando
-sudo reboot
+reboot
+
+# 1. Installazione base
+# --------------------------
+apt update -y
+apt install curl ufw -y
+
+# --------------------------
+# 2. Configurazione Firewall
+# --------------------------
+# Regole necessarie
+ufw allow ssh
+ufw allow 3000:3002/tcp
+ufw allow 3000:3002/udp
+
+ufw enable
+
+# --------------------------
+# 3. Dipendenze LGSM / SteamCMD
+# --------------------------
+dpkg --add-architecture i386
+apt update -y
+
+apt install -y \
+    bc binutils bsdmainutils distro-info jq \
+    lib32gcc-s1 lib32stdc++6 libgdiplus libsdl2-2.0-0:i386 \
+    netcat-openbsd pigz tmux unzip uuid-runtime wget xz-utils
+
+# --------------------------
+# 4. Creazione Utente ecoserver
+# --------------------------
+adduser ecoserver
+
+# --------------------------
+# 5. Installazione LinuxGSM come 'ecoserver'
+# --------------------------
+su - ecoserver 
+
+curl -Lo linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh ecoserver
+
+./ecoserver install
